@@ -1,0 +1,9 @@
+/build
+/dist
+/node_modules
+/deploy
+/previous_deploy.tar.gz
+/.yarn
+/.idea
+/.env*
+!/.env*.dist
