@@ -13,11 +13,13 @@
     "unicorn",
     "prettier"
   ],
+  "parserOptions": {
+    "sourceType": "module",
+    "project": ["tsconfig.json"]
+  },
   "overrides": [
     {
-      "files": [
-        "src/**/*.ts"
-      ],
+      "files": ["src/**/*.ts"],
       "extends": [
         "plugin:@typescript-eslint/recommended",
         "plugin:jsonc/recommended-with-jsonc",
@@ -27,11 +29,6 @@
         "plugin:@cspell/recommended"
       ],
       "parser": "@typescript-eslint/parser",
-      "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ]
-      },
       "rules": {
         "prettier/prettier": "error",
         "unicorn/switch-case-braces": "off",
@@ -62,18 +59,14 @@
         "unicorn/prefer-event-target": "off",
         "simple-import-sort/imports": "warn",
         "simple-import-sort/exports": "warn",
-        "no-console": [
-          "error"
-        ],
+        "no-console": ["error"],
         "@typescript-eslint/no-unnecessary-type-constraint": "off",
         "@typescript-eslint/no-unused-vars": "warn",
         "@typescript-eslint/no-explicit-any": "error"
       }
     },
     {
-      "files": [
-        "*.spec.ts"
-      ],
+      "files": ["*.spec.ts", "*.test.ts"],
       "env": {
         "jest": true
       },
@@ -85,16 +78,8 @@
       }
     },
     {
-      "files": [
-        "metrics.helper.ts",
-        "*.module.ts"
-      ],
+      "files": ["metrics.helper.ts", "*.module.ts"],
       "parser": "@typescript-eslint/parser",
-      "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ]
-      },
       "rules": {
         "@typescript-eslint/no-magic-numbers": "off"
       }

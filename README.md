@@ -4,7 +4,8 @@ Welcome to the Digital Alchemy standalone automation repository!
 
 ## Purpose
 
-This repository is designed to work both locally and deployed as a docker container. The container will interact with the HomeAssistant websocket to fulfill its automation goals.
+This repository is designed to work both locally and deployed as a docker container. The container
+will interact with the HomeAssistant websocket to fulfill its automation goals.
 
 ## Community
 
@@ -98,9 +99,11 @@ bun run publish
 
 ### Deploy
 
-For now, this will be considered a manual step. Basically all you have to do is pull the image that you've just pushed.
+For now, this will be considered a manual step. Basically all you have to do is pull the image that
+you've just pushed.
 
-> _**Note:** make sure that the same variables from `.env.dist` are passed into the container at runtime._
+> _**Note:** make sure that the same variables from `.env.dist` are passed into the container at
+> runtime._
 
 ## 📄 License
 

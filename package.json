@@ -3,15 +3,36 @@
   "version": "0.1.0",
   "homepage": "https://docs.digital-alchemy.app/",
   "description": "A quick start demo workspace to building code with @digital-alchemy. Tuned for supervised Home Assistant installs",
+  "license": "MIT",
+  "type": "module",
   "scripts": {
-    "dev": "bun --watch src/main.ts",
+    "dev": "bun --hot --watch src/main.ts",
     "build": "bun build src/main.ts --target=bun --outfile=dist/server.js",
     "start": "bun run dist/server.js",
-    "lint": "eslint src/",
-    "lint:fix": "eslint --fix src/",
-    "type-writer": "type-writer"
+    "test": "vitest",
+    "coverage": "vitest --coverage",
+    "lint": "eslint src/ --ext .js,.ts,.tsx,.mts --max-warnings 0",
+    "format": "prettier --write .",
+    "fix": "bun run format && bun run lint --fix",
+    "typecheck": "tsc --noEmit",
+    "types": "bun --env-file .env type-writer",
+    "prepare": "husky install"
   },
-  "license": "MIT",
+  "trustedDependencies": [
+    "husky"
+  ],
+  "lint-staged": {
+    "*.@(sh|bash|zsh|fish)": [
+      "shellcheck",
+      "git update-index --chmod=+x"
+    ],
+    "*.@(ts|tsx|mts)": "bash -c 'bun tsc --skipLibCheck --noEmit'",
+    "*.@(ts|tsx|mts|js|jsx|mjs|cjs)": [
+      "bun eslint --max-warnings 0",
+      "vitest related --run"
+    ],
+    "*.@(ts|tsx|mts|js|jsx|mjs|cjs|json|jsonc|json5|md|mdx|yaml|yml)": "prettier --write"
+  },
   "dependencies": {
     "@digital-alchemy/core": "^0.3.11",
     "@digital-alchemy/hass": "^0.3.14",
@@ -22,9 +43,10 @@
     "@digital-alchemy/type-writer": "^0.3.8",
     "@types/async": "^3.2.24",
     "@types/bun": "^1",
-    "@types/node": "^20.12.7",
+    "@types/jest": "^29.5.12",
     "@typescript-eslint/eslint-plugin": "7.6.0",
     "@typescript-eslint/parser": "7.6.0",
+    "@vitest/coverage-v8": "^0.34.6",
     "bun": "^1.1.4",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
@@ -37,10 +59,15 @@
     "eslint-plugin-sonarjs": "^0.25.1",
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "eslint-plugin-unicorn": "^52.0.0",
+    "eslint-plugin-vitest": "^0.3.25",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
     "prettier": "^3.2.5",
+    "shellcheck": "^2.2.0",
     "tsx": "^4.7.2",
     "type-fest": "^4.15.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.0"
   },
   "volta": {
     "node": "20.12.2",
