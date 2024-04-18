@@ -17,8 +17,14 @@ This repository is designed to work both locally and deployed as a docker contai
 
 These tools need to be installed on your machine:
 
-- [Volta](https://volta.sh/) - Autonomously manages Node and Yarn versions
+- [Bun](https://bun.sh/) - TypeScript runtime and package manager
 - [Docker desktop](https://www.docker.com/products/docker-desktop/) - For packaging the application
+
+#### Alternatives
+
+Instead of Bun, you may feel free to use Volta instead.
+
+- [Volta](https://volta.sh/) - Autonomously manages Node and Yarn versions
 
 ### Clone
 
@@ -41,7 +47,7 @@ cd automation-standalone
 Install dependencies with Yarn:
 
 ```bash
-yarn
+bun install
 ```
 
 ### Configure
@@ -61,7 +67,7 @@ Then, configure each variable in `.env`.
 Run your automations locally
 
 ```bash
-yarn dev
+bun run dev
 ```
 
 ### Test
@@ -69,7 +75,7 @@ yarn dev
 Run all your tests
 
 ```bash
-yarn test
+bun run test
 ```
 
 ## Publication
@@ -79,7 +85,7 @@ yarn test
 Build the application
 
 ```bash
-yarn build
+bun run build
 ```
 
 ### Publish
@@ -87,7 +93,7 @@ yarn build
 Build and publish your application to a docker registry
 
 ```bash
-yarn publish
+bun run publish
 ```
 
 ### Deploy

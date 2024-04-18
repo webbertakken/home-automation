@@ -4,10 +4,9 @@
   "homepage": "https://docs.digital-alchemy.app/",
   "description": "A quick start demo workspace to building code with @digital-alchemy. Tuned for supervised Home Assistant installs",
   "scripts": {
-    "dev": "tsx watch --env-file .env src/main.ts",
-    "build": "tsc",
-    "develop:watch": "tsx watch src/main.ts",
-    "develop": "tsx src/main.ts",
+    "dev": "bun --watch src/main.ts",
+    "build": "bun build src/main.ts --target=bun --outfile=dist/server.js",
+    "start": "bun run dist/server.js",
     "lint": "eslint src/",
     "lint:fix": "eslint --fix src/",
     "type-writer": "type-writer"
@@ -15,16 +14,18 @@
   "license": "MIT",
   "dependencies": {
     "@digital-alchemy/core": "^0.3.11",
-    "@digital-alchemy/hass": "^0.3.9",
+    "@digital-alchemy/hass": "^0.3.14",
     "@digital-alchemy/synapse": "^0.3.5"
   },
   "devDependencies": {
     "@cspell/eslint-plugin": "^8.7.0",
-    "@digital-alchemy/type-writer": "^0.3.7",
+    "@digital-alchemy/type-writer": "^0.3.8",
     "@types/async": "^3.2.24",
+    "@types/bun": "^1",
     "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "7.6.0",
     "@typescript-eslint/parser": "7.6.0",
+    "bun": "^1.1.4",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "^2.29.1",
