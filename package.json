@@ -7,8 +7,9 @@
   "type": "module",
   "scripts": {
     "dev": "bun --hot --watch src/main.ts",
-    "build": "bun build src/main.ts --target=bun --outfile=dist/server.js",
-    "start": "bun run dist/server.js",
+    "build": "docker build . -f tools/docker/Dockerfile -t automation-prod",
+    "build:dist": "bun build src/main.ts --target=bun --outfile=dist/server.js",
+    "start": "docker run --env-file .env automation-prod",
     "test": "vitest",
     "coverage": "vitest --coverage",
     "lint": "eslint src/ --ext .js,.ts,.tsx,.mts --max-warnings 0",
@@ -16,7 +17,7 @@
     "fix": "bun run format && bun run lint --fix",
     "typecheck": "tsc --noEmit",
     "types": "bun --env-file .env type-writer",
-    "prepare": "husky install"
+    "prepare": "husky install || true"
   },
   "trustedDependencies": [
     "husky"
@@ -28,7 +29,7 @@
     ],
     "*.@(ts|tsx|mts)": "bash -c 'bun tsc --skipLibCheck --noEmit'",
     "*.@(ts|tsx|mts|js|jsx|mjs|cjs)": [
-      "bun eslint --max-warnings 0",
+      "eslint --max-warnings 0",
       "vitest related --run"
     ],
     "*.@(ts|tsx|mts|js|jsx|mjs|cjs|json|jsonc|json5|md|mdx|yaml|yml)": "prettier --write"

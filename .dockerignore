@@ -1,0 +1,14 @@
+.dockerignore
+.editorconfig
+.env
+.git
+.github
+.gitignore
+.idea
+.yarn
+.vscode
+coverage*
+tools
+LICENSE
+README.md
+node_modules
