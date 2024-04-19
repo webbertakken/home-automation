@@ -18,14 +18,8 @@ will interact with the HomeAssistant websocket to fulfill its automation goals.
 
 These tools need to be installed on your machine:
 
-- [Bun](https://bun.sh/) - TypeScript runtime and package manager
-- [Docker desktop](https://www.docker.com/products/docker-desktop/) - For packaging the application
-
-#### Alternatives
-
-Instead of Bun, you may feel free to use Volta instead.
-
 - [Volta](https://volta.sh/) - Autonomously manages Node and Yarn versions
+- [Docker desktop](https://www.docker.com/products/docker-desktop/) - For packaging the application
 
 ### Clone
 
@@ -43,12 +37,12 @@ Change directory to the repository root:
 cd automation-standalone
 ```
 
-### Install dependencies
+### Install
 
-Install dependencies with Yarn:
+Install dependencies using Yarn:
 
 ```bash
-bun install
+yarn
 ```
 
 ### Configure
@@ -59,16 +53,24 @@ Create a `.env` file from the `.env.dist` example file.
 cp .env.dist .env
 ```
 
-Then, configure each variable in `.env`.
+Then, configure each variable in `.env` so that the application can connect to your HA instance.
 
 ## Usage
+
+### Sync
+
+Synchronize the latest DA packages and write types based on your HA instance
+
+```bash
+yarn sync
+```
 
 ### Run
 
 Run your automations locally
 
 ```bash
-bun run dev
+yarn dev
 ```
 
 ### Test
@@ -76,7 +78,7 @@ bun run dev
 Run all your tests
 
 ```bash
-bun run test
+yarn test
 ```
 
 ## Publication
@@ -86,7 +88,7 @@ bun run test
 Build the application
 
 ```bash
-bun run build
+yarn build
 ```
 
 ### Publish
@@ -94,7 +96,7 @@ bun run build
 Build and publish your application to a docker registry
 
 ```bash
-bun run publish
+yarn publish
 ```
 
 ### Deploy

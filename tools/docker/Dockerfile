@@ -1,20 +1,14 @@
 ###########################################################
 ##                                                       ##
-# #                        Base                          ##
+##                    Global variables                   ##
 ##                                                       ##
 ###########################################################
 
 # see all versions at https://hub.docker.com/r/oven/bun/tags
-ARG BUN_VERSION=1
+ARG BUN_VERSION="1"
 
-# Official Bun image
-FROM oven/bun:${BUN_VERSION} as base
-
-# Bun uses NODE_ENV for backward compatibility with Node
-ENV NODE_ENV="production"
-
-# Simplicity first
-WORKDIR /app
+# see all versions at https://hub.docker.com/r/bitnami/node/tags
+ARG NODE_VERSION="20"
 
 ###########################################################
 ##                                                       ##
@@ -22,33 +16,39 @@ WORKDIR /app
 ##                                                       ##
 ###########################################################
 
-FROM base as builder
+#FROM bitnami/node:${NODE_VERSION} as builder
+#FROM imbios/bun-node:latest-20-debian as builder
+
+FROM bitnami/node:${NODE_VERSION} as builder
 
 # Act as CI system: no interactive tty, no stdin/stdout, no watch processes
 ENV CI="true"
 
-# Copy only relevant files for dev and prod
-COPY package.json bun.lockb /app/prod/
-COPY package.json bun.lockb tsconfig.json vitest.config.ts .prettier* .eslint* .cspell.json /app/dev/
+# Ensure we treat everything as production
+ENV NODE_ENV="production"
 
-# Copy source code
-COPY src/ /app/dev/src/
+# Pacakage management happens through Node and Yarn
+RUN curl https://get.volta.sh | bash
+ENV VOLTA_HOME "/root/.volta"
+ENV PATH "$VOLTA_HOME/bin:$PATH"
+
+# Copy only relevant files
+COPY package.json yarn.lock .yarnrc.yml tsconfig.json vitest.config.ts .prettier* .eslint* .cspell.json /app/
+COPY src/ /app/src/
 
 # Build and pre-flight checks
-RUN cd /app/dev \
-    && bun install --frozen-lockfile \
-    # Note: `--watch false` is a workaround for https://github.com/vitest-dev/vitest/issues/1288
-    && bun test --watch false \
-    && bun run prettier --check . \
-    && bun run lint \
+RUN cd /app/ \
+    && yarn install --immutable \
+    && yarn test \
+    && yarn prettier --check . \
+    && yarn lint \
     # Note: Can not do typecheck unless we pass in credentials during build time
-    #    && bun run types \
-    #    && bun run typecheck \
-    && bun run build:dist
-
-# Prod deps only
-RUN cd /app/prod \
-    && bun install --production --frozen-lockfile
+    #    && yarn types \
+    #    && yarn typecheck \
+    && yarn build:dist \
+    && du -sh node_modules \
+    && yarn workspaces focus --production \
+    && du -sh node_modules
 
 ###########################################################
 ##                                                       ##
@@ -56,7 +56,15 @@ RUN cd /app/prod \
 ##                                                       ##
 ###########################################################
 
-FROM base as prod
+
+# Official Bun image
+FROM oven/bun:${BUN_VERSION} as automation-prod
+
+# Bun uses NODE_ENV for backward compatibility with Node
+ENV NODE_ENV="production"
+
+# Simplicity first
+WORKDIR /app
 
 # Open Container Initiative (OCI) labels
 LABEL org.opencontainers.image.title="Automation Standalone" \
@@ -70,9 +78,8 @@ LABEL org.opencontainers.image.title="Automation Standalone" \
       org.opencontainers.image.licenses="MIT"
 
 # Copy the distributable files and production specific dependencies
-COPY --from=builder /app/dev/dist .
-COPY --from=builder /app/prod/package.json .
-COPY --from=builder /app/prod/node_modules node_modules
+COPY --from=builder /app/dist /app/package.json ./
+COPY --from=builder /app/node_modules node_modules
 
 # Run the app
 USER bun
