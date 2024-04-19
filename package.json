@@ -9,7 +9,7 @@
     "dev": "bun --hot --watch src/main.ts",
     "sync": "yarn up \"@digital-alchemy/*\" && bunx --env-file .env type-writer",
     "build": "bun --env-file .env build:docker",
-    "build:dist": "bun build src/main.ts --target=bun --outfile=dist/server.js",
+    "build:dist": "bun build src/main.ts --compile --minify --outfile dist/server",
     "build:docker": "docker build . --build-arg HASS_TOKEN=$HASS_TOKEN --build-arg HASS_BASE_URL=$HASS_BASE_URL -t automation-prod",
     "start": "docker run --env-file .env automation-prod",
     "test": "vitest",

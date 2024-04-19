@@ -70,15 +70,8 @@ RUN cd /app/ \
 ##                                                       ##
 ###########################################################
 
-
-# Official Bun image
-FROM oven/bun:${BUN_VERSION} as automation-prod
-
-# Bun uses NODE_ENV for backward compatibility with Node
-ENV NODE_ENV="production"
-
-# Simplicity first
-WORKDIR /app
+# Must be compatible with executable from Builder
+FROM debian:buster-slim
 
 # Open Container Initiative (OCI) labels
 LABEL org.opencontainers.image.title="Automation Standalone" \
@@ -91,11 +84,12 @@ LABEL org.opencontainers.image.title="Automation Standalone" \
       org.opencontainers.image.authors="Webber Takken <webber@takken.io>" \
       org.opencontainers.image.licenses="MIT"
 
+# Simplicity first
+WORKDIR /app
+
 # Copy the distributable files and production specific dependencies
 COPY --from=builder /app/dist /app/package.json ./
-COPY --from=builder /app/node_modules node_modules
 
 # Run the app
-USER bun
 EXPOSE 3000
-ENTRYPOINT [ "bun", "run", "server.js" ]
+CMD ["./server"]
