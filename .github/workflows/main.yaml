@@ -39,8 +39,5 @@ jobs:
       - name: Formatting
         run: yarn prettier --check .
 
-      #      - name: Typecheck
-      #        run: yarn typecheck
-
       - name: Build
         run: yarn build

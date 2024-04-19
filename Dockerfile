@@ -10,16 +10,21 @@ ARG BUN_VERSION="1"
 # see all versions at https://hub.docker.com/r/bitnami/node/tags
 ARG NODE_VERSION="20"
 
+# Build time secrets
+ARG HASS_TOKEN
+ARG HASS_BASE_URL
+
 ###########################################################
 ##                                                       ##
 ##                       BUILDER                         ##
 ##                                                       ##
 ###########################################################
 
-#FROM bitnami/node:${NODE_VERSION} as builder
-#FROM imbios/bun-node:latest-20-debian as builder
-
 FROM bitnami/node:${NODE_VERSION} as builder
+
+# Allow build time secrets in this image
+ARG HASS_TOKEN
+ARG HASS_BASE_URL
 
 # Act as CI system: no interactive tty, no stdin/stdout, no watch processes
 ENV CI="true"
@@ -38,17 +43,26 @@ COPY src/ /app/src/
 
 # Build and pre-flight checks
 RUN cd /app/ \
+    && echo "node version: $(node --version)" \
+    && echo "yarn version: $(yarn --version)" \
+    && echo -e "/app/ folder:\n$(ls -alh)" \
     && yarn install --immutable \
     && yarn test \
     && yarn prettier --check . \
     && yarn lint \
-    # Note: Can not do typecheck unless we pass in credentials during build time
-    #    && yarn types \
-    #    && yarn typecheck \
+    && if [ -n "$HASS_TOKEN" ] && [ -n "$HASS_BASE_URL" ]; then \
+       echo "HASS_TOKEN provided, running yarn typecheck"; \
+       yarn type-writer; \
+       yarn typecheck; \
+    else \
+        echo "HASS_TOKEN not provided, skipping yarn typecheck"; \
+    fi \
     && yarn build:dist \
-    && du -sh node_modules \
+    && echo -e "dist files:\n$(ls -alh dist | tail -n +4)" \
+    && echo "dist size: $(du -sh dist)" \
+    && echo "node_modules size including dev dependencies: $(du -sh node_modules)" \
     && yarn workspaces focus --production \
-    && du -sh node_modules
+    && echo "node modules size after production focus: $(du -sh node_modules)"
 
 ###########################################################
 ##                                                       ##
