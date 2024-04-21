@@ -73,13 +73,19 @@ Run your automations locally
 yarn dev
 ```
 
-### Test
+## Testing
+
+#### Unit tests and integration tests
 
 Run all your tests
 
 ```bash
 yarn test
 ```
+
+#### End-to-end tests
+
+See [./playground](./playground/README.md) folder readme.
 
 ## Publication
 

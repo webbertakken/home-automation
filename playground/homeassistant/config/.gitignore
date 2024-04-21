@@ -1,0 +1,17 @@
+# Sensitive files
+passwd
+*.db*
+!*.db
+*.sqlite
+
+# Home Assistant generated files
+/.cloud
+/backups
+**/*.log*
+temp.txt
+*.bolt
+/lsiopy
+tts/*
+
+# Vendor files (explicitly per folder, for reinstall purposes)
+/custom_components/hacs
