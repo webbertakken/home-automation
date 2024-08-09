@@ -1,68 +1,68 @@
-# Automation Standalone 🏡💻🐳
+## Automation Standalone 🏡💻🐳
 
 Welcome to the Digital Alchemy standalone automation repository!
-
-## Purpose
 
 This repository is designed to work both locally and deployed as a docker container. The container
 will interact with the HomeAssistant websocket to fulfill its automation goals.
 
-## Community
-
 - 📚 [Documentation](https://docs.digital-alchemy.app/)
 - 🗣️ [Discord](https://discord.gg/JkZ35Gv97Y)
 
-## Setup
+## 🏗️ Setup
 
 ### Prerequisites
 
-These tools need to be installed on your machine:
+Digital Alchemy targets `node20`, which is the only required system dependency. Recommended workspace tools:
 
 - [Volta](https://volta.sh/) - Autonomously manages Node and Yarn versions
 - [Docker desktop](https://www.docker.com/products/docker-desktop/) - For packaging the application
 
 ### Clone
 
-Clone the repository to your local machine:
+Clone the repository to your local machine and change directory to thew new repo:
 
 ```bash
 git clone git@github.com/Digital-Alchemy-TS/automation-standalone.git
-```
 
-### Change directory
-
-Change directory to the repository root:
-
-```bash
 cd automation-standalone
 ```
 
-### Install
+### Install Dependencies
 
 Install dependencies using Yarn:
 
 ```bash
-yarn
+# (optional) enable yarn for setups without Volta
+corepack enable
+
+# install node_modules
+yarn install
 ```
 
 ### Configure
 
-Create a `.env` file from the `.env.dist` example file.
+Create a `.env` file from the `.env.template` example file. <sup>[docs](https://docs.digital-alchemy.app/docs/core/configuration)</sup>
 
 ```bash
-cp .env.dist .env
+cp .env.template .env
 ```
 
 Then, configure each variable in `.env` so that the application can connect to your HA instance.
 
-## Usage
+## 🪄 Workspace Usage
 
-### Sync
+### Management
 
-Synchronize the latest DA packages and write types based on your HA instance
+Upgrade the version of `@digital-alchemy` libraries to latest.
 
 ```bash
-yarn sync
+yarn upgrade
+```
+
+Update the library type definitions based on current Home Assistant state. <sup>[docs](https://docs.digital-alchemy.app/docs/home-automation/type-writer/)</sup>
+
+```bash
+yarn type-writer
 ```
 
 ### Run
@@ -70,48 +70,12 @@ yarn sync
 Run your automations locally
 
 ```bash
-yarn dev
+# normal start
+yarn start
+
+# automatic reload when code changes
+yarn start:watch
 ```
-
-## Testing
-
-#### Unit tests and integration tests
-
-Run all your tests
-
-```bash
-yarn test
-```
-
-#### End-to-end tests
-
-See [./playground](./playground/README.md) folder readme.
-
-## Publication
-
-### Build
-
-Build the application
-
-```bash
-yarn build
-```
-
-### Publish
-
-Build and publish your application to a docker registry
-
-```bash
-yarn publish
-```
-
-### Deploy
-
-For now, this will be considered a manual step. Basically all you have to do is pull the image that
-you've just pushed.
-
-> _**Note:** make sure that the same variables from `.env.dist` are passed into the container at
-> runtime._
 
 ## 📄 License
 

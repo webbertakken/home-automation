@@ -4,8 +4,10 @@
 /node_modules
 /deploy
 /previous_deploy.tar.gz
+/synapse_storage.db
 /.yarn
 /.idea
 /.vscode
 /.env*
 !/.env*.dist
+!/.env*.template

@@ -20,13 +20,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: package.json
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Install deps
         run: yarn install --frozen-lockfile --immutable
 
       - name: Tests
-        run: yarn coverage
+        run: yarn test:coverage
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1

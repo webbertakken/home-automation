@@ -4,9 +4,6 @@
 ##                                                       ##
 ###########################################################
 
-# see all versions at https://hub.docker.com/r/oven/bun/tags
-ARG BUN_VERSION="1"
-
 # see all versions at https://hub.docker.com/r/bitnami/node/tags
 ARG NODE_VERSION="20"
 
@@ -38,7 +35,7 @@ ENV VOLTA_HOME "/root/.volta"
 ENV PATH "$VOLTA_HOME/bin:$PATH"
 
 # Copy only relevant files
-COPY package.json yarn.lock .yarnrc.yml tsconfig.json vitest.config.ts .prettier* .eslint* .cspell.json /app/
+COPY package.json yarn.lock .yarnrc.yml tsconfig.json vitest.config.ts .prettier* .eslint* /app/
 COPY src/ /app/src/
 
 # Build and pre-flight checks
@@ -90,6 +87,9 @@ WORKDIR /app
 # Copy the distributable files and production specific dependencies
 COPY --from=builder /app/dist /app/package.json ./
 
+# match port in app
+ENV PORT 3000
+
 # Run the app
-EXPOSE 3000
+EXPOSE $PORT
 CMD ["./server"]
