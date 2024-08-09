@@ -2,10 +2,9 @@
 
 Welcome to the Digital Alchemy standalone automation repository!
 
-This repository is designed to work both locally and deployed as a docker container. The container
-will interact with the HomeAssistant websocket to fulfill its automation goals.
+This repository is designed to work as a locally running development server, as well as providing options for long term deployments.
 
-- 📚 [Documentation](https://docs.digital-alchemy.app/)
+- 📚 [Documentation](https://docs.digital-alchemy.app)
 - 🗣️ [Discord](https://discord.gg/JkZ35Gv97Y)
 
 ## 🏗️ Setup
@@ -76,6 +75,10 @@ yarn start
 # automatic reload when code changes
 yarn start:watch
 ```
+
+## 🐳 Deployments
+
+> See the [extended documentation](https://docs.digital-alchemy.app/docs/home-automation/quickstart/automation-standalone/) for details
 
 ## 📄 License
 
