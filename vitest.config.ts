@@ -1,10 +1,10 @@
-import "vitest/config";
+import 'vitest/config'
 
 export default {
   test: {
     coverage: {
-      provider: "v8",
-      reporter: ["html", "lcov", "clover"],
+      provider: 'v8',
+      reporter: ['html', 'lcov', 'clover'],
     },
   },
-};
+}

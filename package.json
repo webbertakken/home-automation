@@ -1,24 +1,25 @@
 {
   "name": "automation-standalone",
-  "version": "24.8.1",
+  "version": "0.1.0",
   "homepage": "https://docs.digital-alchemy.app/",
-  "description": "A quick start demo workspace to building code with @digital-alchemy. Tuned for running as a standalone project",
+  "description": "A quick start demo workspace to building code with @digital-alchemy. Tuned for supervised Home Assistant installs",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "start": "tsx src/main.ts",
-    "start:watch": "nodemon --exec tsx src/main.ts",
-    "start:pm2": "pm2 start pm2.ecosystem.js",
-    "build": "tsc",
-    "build:check": "tsc --noEmit",
+    "dev": "bun --hot --watch src/main.ts",
+    "play": "docker-compose -f playground/docker-compose.yml up",
+    "endplay": "docker-compose -f playground/docker-compose.yml down",
+    "sync": "yarn up \"@digital-alchemy/*\" && bunx --env-file .env type-writer",
+    "build": "bun --env-file .env build:docker",
+    "build:dist": "bun build src/main.ts --compile --minify --outfile dist/server",
     "build:docker": "docker build . --build-arg HASS_TOKEN=$HASS_TOKEN --build-arg HASS_BASE_URL=$HASS_BASE_URL -t automation-prod",
-    "build:pm2": "cross-env ./scripts/build.sh",
-    "upgrade": "yarn up '@digital-alchemy/*'",
-    "test": "vitest --passWithNoTests",
-    "test:coverage": "vitest --coverage --passWithNoTests",
-    "lint": "eslint src/ --max-warnings 0",
-    "lint:fix": "yarn format && yarn lint --fix",
+    "start": "docker run --env-file .env automation-prod",
+    "test": "vitest",
+    "coverage": "vitest --coverage",
+    "lint": "eslint src/ --ext .js,.ts,.tsx,.mts --max-warnings 0",
     "format": "prettier --write .",
-    "type-writer": "type-writer",
+    "fix": "yarn format && yarn lint --fix",
+    "typecheck": "tsc --noEmit",
     "prepare": "husky install || true"
   },
   "lint-staged": {
@@ -26,7 +27,7 @@
       "shellcheck",
       "git update-index --chmod=+x"
     ],
-    "*.@(ts|tsx|mts)": "bash -c 'tsc --skipLibCheck --noEmit'",
+    "*.@(ts|tsx|mts)": "bash -c 'bun tsc --skipLibCheck --noEmit'",
     "*.@(ts|tsx|mts|js|jsx|mjs|cjs)": [
       "eslint --max-warnings 0",
       "vitest related --run"
@@ -34,31 +35,36 @@
     "*.@(ts|tsx|mts|js|jsx|mjs|cjs|json|jsonc|json5|md|mdx|yaml|yml)": "prettier --write"
   },
   "dependencies": {
-    "@digital-alchemy/automation": "^24.7.1",
-    "@digital-alchemy/core": "^24.7.2",
-    "@digital-alchemy/fastify-extension": "^24.7.1",
-    "@digital-alchemy/hass": "^24.8.1",
-    "@digital-alchemy/mqtt-extension": "^24.7.1",
-    "@digital-alchemy/synapse": "^24.7.2",
-    "dayjs": "^1.11.12"
+    "@digital-alchemy/core": "^0.3.11",
+    "@digital-alchemy/hass": "^0.3.14",
+    "@digital-alchemy/synapse": "^0.3.5",
+    "dayjs": "^1.11.10"
   },
   "devDependencies": {
-    "@digital-alchemy/type-writer": "^24.7.2",
+    "@cspell/eslint-plugin": "^8.7.0",
+    "@digital-alchemy/type-writer": "^0.3.8",
+    "@types/async": "^3.2.24",
+    "@types/bun": "^1.1.0",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "7.6.0",
     "@typescript-eslint/parser": "7.6.0",
     "@vitest/coverage-v8": "^1.5.0",
-    "cross-env": "^7.0.3",
+    "bun": "^1.1.4",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsonc": "^2.15.1",
+    "eslint-plugin-no-unsanitized": "^4.0.2",
     "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-security": "^3.0.0",
+    "eslint-plugin-simple-import-sort": "^12.1.0",
+    "eslint-plugin-sonarjs": "^0.25.1",
+    "eslint-plugin-sort-keys-fix": "^1.1.2",
     "eslint-plugin-unicorn": "^52.0.0",
     "eslint-plugin-vitest": "^0.5.3",
     "husky": "^8.0.3",
     "lint-staged": "^15.1.0",
-    "nodemon": "^3.1.4",
     "prettier": "^3.2.5",
     "shellcheck": "^2.2.0",
     "tsx": "^4.7.2",
@@ -66,5 +72,9 @@
     "typescript": "^5.4.5",
     "vitest": "^1.5.0"
   },
-  "packageManager": "yarn@4.4.0"
+  "volta": {
+    "node": "20.12.2",
+    "yarn": "4.1.1"
+  },
+  "packageManager": "yarn@4.1.1"
 }
