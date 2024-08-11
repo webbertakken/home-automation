@@ -1,79 +1,58 @@
-import { CreateApplication } from '@digital-alchemy/core'
+import { LIB_AUTOMATION } from '@digital-alchemy/automation'
+import { CreateApplication, StringConfig } from '@digital-alchemy/core'
 import { LIB_HASS } from '@digital-alchemy/hass'
+import { LIB_SYNAPSE } from '@digital-alchemy/synapse'
 
-import { EntityList } from './entity-list'
-import { HelperFile } from './helper'
+import { RuntimePrecedence } from './core/runtime-precedence'
+import { Setup } from './core/setup'
+import { Helpers } from './helpers'
+import { Office } from './office'
+
+type AutomationEnvironments = 'development' | 'production' | 'test'
 
 const HOME_AUTOMATION = CreateApplication({
-  /**
-   * keep your secrets out of the code!
-   * these variables will be loaded from your configuration file
-   */
+  name: 'homeAutomation',
   configuration: {
-    EXAMPLE_CONFIGURATION: {
+    NODE_ENV: {
+      type: 'string',
+      default: 'development',
+      enum: ['development', 'production', 'test'],
+      description: "Code runner addon can set with it's own NODE_ENV",
+    } satisfies StringConfig<AutomationEnvironments>,
+
+    MY_CONFIG_SETTING: {
       default: 'foo',
       description: 'A configuration defined as an example',
       type: 'string',
     },
   },
 
-  /**
-   * Adding to this array will provide additional elements in TServiceParams
-   * for your code to use
-   */
-  libraries: [
-    /**
-     * LIB_HASS provides basic interactions for Home Assistant
-     *
-     * Will automatically start websocket as part of bootstrap
-     */
-    LIB_HASS,
-  ],
+  // Plugins for TSServiceParams
+  libraries: [LIB_HASS, LIB_SYNAPSE, LIB_AUTOMATION],
 
-  /**
-   * must match key used in LoadedModules
-   * affects:
-   *  - import name in TServiceParams
-   *  - and files used for configuration
-   *  - log context
-   */
-  name: 'home_automation',
-
-  /**
-   * Need a service to be loaded first? Add to this list
-   */
-  priorityInit: ['helper'],
-
-  /**
-   * Add additional services here
-   * No guaranteed loading order unless added to priority list
-   *
-   * context: ServiceFunction
-   */
+  // Service initialization order
+  priorityInit: ['setup', 'runtimePrecedence', 'helpers'],
   services: {
-    entity_list: EntityList,
-    helper: HelperFile,
+    setup: Setup,
+    runtimePrecedence: RuntimePrecedence,
+    helpers: Helpers,
+    office: Office,
   },
 })
 
-// Load the type definitions
+// Do some magic to make all the types work
 declare module '@digital-alchemy/core' {
   export interface LoadedModules {
-    home_automation: typeof HOME_AUTOMATION
+    homeAutomation: typeof HOME_AUTOMATION
   }
 }
 
-// Kick off the application!
+// bootstrap application
 setImmediate(
   async () =>
     await HOME_AUTOMATION.bootstrap({
-      /**
-       * override library defined defaults
-       * not a substitute for config files
-       */
       configuration: {
-        // default value: trace
-        boilerplate: { LOG_LEVEL: 'debug' },
+        boilerplate: { LOG_LEVEL: 'info' },
       },
     }),
 )

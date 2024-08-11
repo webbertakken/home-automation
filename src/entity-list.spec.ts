@@ -11,13 +11,13 @@ describe('EntityList', () => {
       },
     }
     const logger = { debug: vi.fn(), info: vi.fn() }
-    const home_automation = {
-      helper: { doStuff: vi.fn(), theChosenEntity: { onUpdate: vi.fn() } },
+    const homeAutomation = {
+      helpers: { doStuff: vi.fn(), theSun: { onUpdate: vi.fn() } },
     }
 
     // @ts-expect-error these are not fully fledged out as this is a quick example
-    EntityList({ hass, home_automation, logger })
+    EntityList({ hass, homeAutomation, logger })
     expect(hass.socket.onConnect).toHaveBeenCalledTimes(1)
-    expect(home_automation.helper.theChosenEntity.onUpdate).toHaveBeenCalledTimes(1)
+    expect(homeAutomation.helpers.theSun.onUpdate).toHaveBeenCalledTimes(1)
   })
 })

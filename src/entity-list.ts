@@ -1,17 +1,10 @@
 import { TServiceParams } from '@digital-alchemy/core'
 
-/**
- * There's other helpful things inside TServiceParams
- *
- * https://docs.digital-alchemy.app/TServiceParams
- * https://docs.digital-alchemy.app/Hass
- */
-export function EntityList({ hass, logger, home_automation }: TServiceParams) {
-  // note: helper must be loaded first
-  const { theChosenEntity } = home_automation.helper
+export function EntityList({ hass, logger, homeAutomation }: TServiceParams) {
+  const { theSun } = homeAutomation.helpers
 
   hass.socket.onConnect(async () => {
-    const resultText = home_automation.helper.doStuff()
+    const resultText = homeAutomation.helpers.doStuff()
     const entities = hass.entity.listEntities()
     logger.info({ entities, resultText }, 'hello world')
     await hass.call.notify.notify({
@@ -19,11 +12,11 @@ export function EntityList({ hass, logger, home_automation }: TServiceParams) {
     })
   })
 
-  theChosenEntity.onUpdate(() => {
+  theSun.onUpdate(() => {
     logger.debug(
       {
-        attributes: theChosenEntity.attributes,
-        state: theChosenEntity.state,
+        attributes: theSun.attributes,
+        state: theSun.state,
       },
       `theChosenEntity updated`,
     )

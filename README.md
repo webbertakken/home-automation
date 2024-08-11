@@ -39,6 +39,14 @@ cd automation-standalone
 
 ### Install
 
+**Optional**: If you don't have Volta installed, you must enable Corepack to use the correct Yarn
+version.
+
+```bash
+npm unistall -g yarn pnpm
+corepack enable
+```
+
 Install dependencies using Yarn:
 
 ```bash
@@ -62,7 +70,7 @@ Then, configure each variable in `.env` so that the application can connect to y
 Synchronize the latest DA packages and write types based on your HA instance
 
 ```bash
-yarn sync
+yarn type-writer
 ```
 
 ### Run

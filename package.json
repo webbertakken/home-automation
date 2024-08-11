@@ -9,10 +9,11 @@
     "dev": "bun --hot --watch src/main.ts",
     "play": "docker-compose -f playground/docker-compose.yml up",
     "endplay": "docker-compose -f playground/docker-compose.yml down",
-    "sync": "yarn up \"@digital-alchemy/*\" && bunx --env-file .env type-writer",
+    "type-writer": "type-writer",
     "build": "bun --env-file .env build:docker",
     "build:dist": "bun build src/main.ts --compile --minify --outfile dist/server",
     "build:docker": "docker build . --build-arg HASS_TOKEN=$HASS_TOKEN --build-arg HASS_BASE_URL=$HASS_BASE_URL -t automation-prod",
+    "upgrade": "yarn up \"@digital-alchemy/*\"",
     "start": "docker run --env-file .env automation-prod",
     "test": "vitest",
     "coverage": "vitest --coverage",
@@ -35,22 +36,26 @@
     "*.@(ts|tsx|mts|js|jsx|mjs|cjs|json|jsonc|json5|md|mdx|yaml|yml)": "prettier --write"
   },
   "dependencies": {
-    "@digital-alchemy/core": "^0.3.11",
-    "@digital-alchemy/hass": "^0.3.14",
-    "@digital-alchemy/synapse": "^0.3.5",
-    "dayjs": "^1.11.10"
+    "@digital-alchemy/automation": "^24.7.1",
+    "@digital-alchemy/core": "^24.7.2",
+    "@digital-alchemy/fastify-extension": "^24.7.1",
+    "@digital-alchemy/hass": "^24.8.1",
+    "@digital-alchemy/mqtt-extension": "^24.7.1",
+    "@digital-alchemy/synapse": "^24.8.1",
+    "@digital-alchemy/type-writer": "^24.7.2",
+    "dayjs": "^1.11.12"
   },
   "devDependencies": {
     "@cspell/eslint-plugin": "^8.7.0",
-    "@digital-alchemy/type-writer": "^0.3.8",
     "@types/async": "^3.2.24",
-    "@types/bun": "^1.1.0",
+    "@types/bun": "^1.1.6",
     "@types/jest": "^29.5.12",
-    "@types/node": "^20.12.7",
-    "@typescript-eslint/eslint-plugin": "7.6.0",
-    "@typescript-eslint/parser": "7.6.0",
+    "@types/node": "^22.2.0",
+    "@typescript-eslint/eslint-plugin": "7.18.0",
+    "@typescript-eslint/parser": "7.18.0",
     "@vitest/coverage-v8": "^1.5.0",
-    "bun": "^1.1.22",
+    "bun": "^1.1.20",
+    "cross-env": "^7.0.3",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "^2.29.1",
@@ -73,7 +78,7 @@
     "vitest": "^1.5.0"
   },
   "volta": {
-    "node": "20.16.0",
+    "node": "22.6.0",
     "yarn": "4.4.0"
   },
   "packageManager": "yarn@4.4.0"
