@@ -1,8 +1,8 @@
 {
-  "name": "automation-standalone",
+  "name": "docker-standalone",
   "version": "0.1.0",
   "homepage": "https://docs.digital-alchemy.app/",
-  "description": "A quick start demo workspace to building code with @digital-alchemy. Tuned for supervised Home Assistant installs",
+  "description": "A docker-deployable standalone starter-kit for HomeAssistant automations using TypeScript",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -50,7 +50,7 @@
     "@typescript-eslint/eslint-plugin": "7.6.0",
     "@typescript-eslint/parser": "7.6.0",
     "@vitest/coverage-v8": "^1.5.0",
-    "bun": "^1.1.4",
+    "bun": "^1.1.22",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "^2.29.1",
@@ -73,8 +73,8 @@
     "vitest": "^1.5.0"
   },
   "volta": {
-    "node": "20.12.2",
-    "yarn": "4.1.1"
+    "node": "20.16.0",
+    "yarn": "4.4.0"
   },
-  "packageManager": "yarn@4.1.1"
+  "packageManager": "yarn@4.4.0"
 }
