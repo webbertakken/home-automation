@@ -1,8 +1,8 @@
 {
-  "name": "docker-standalone",
+  "name": "home-automation",
   "version": "0.1.0",
   "homepage": "https://docs.digital-alchemy.app/",
-  "description": "A docker-deployable standalone starter-kit for HomeAssistant automations using TypeScript",
+  "description": "My home automated",
   "license": "MIT",
   "type": "module",
   "scripts": {

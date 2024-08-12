@@ -3327,51 +3327,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docker-standalone@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "docker-standalone@workspace:."
-  dependencies:
-    "@cspell/eslint-plugin": "npm:^8.13.2"
-    "@digital-alchemy/automation": "npm:^24.7.1"
-    "@digital-alchemy/core": "npm:^24.7.2"
-    "@digital-alchemy/fastify-extension": "npm:^24.7.1"
-    "@digital-alchemy/hass": "npm:^24.8.1"
-    "@digital-alchemy/mqtt-extension": "npm:^24.7.1"
-    "@digital-alchemy/synapse": "npm:^24.8.1"
-    "@digital-alchemy/type-writer": "npm:^24.7.2"
-    "@types/async": "npm:^3.2.24"
-    "@types/bun": "npm:^1.1.6"
-    "@types/jest": "npm:^29.5.12"
-    "@types/node": "npm:^22.2.0"
-    "@typescript-eslint/eslint-plugin": "npm:7.18.0"
-    "@typescript-eslint/parser": "npm:7.18.0"
-    "@vitest/coverage-v8": "npm:^2.0.5"
-    bun: "npm:^1.1.22"
-    cross-env: "npm:^7.0.3"
-    dayjs: "npm:^1.11.12"
-    eslint: "npm:8.57.0"
-    eslint-config-prettier: "npm:9.1.0"
-    eslint-plugin-import: "npm:^2.29.1"
-    eslint-plugin-jsonc: "npm:^2.16.0"
-    eslint-plugin-no-unsanitized: "npm:^4.0.2"
-    eslint-plugin-prettier: "npm:^5.2.1"
-    eslint-plugin-security: "npm:^3.0.1"
-    eslint-plugin-simple-import-sort: "npm:^12.1.1"
-    eslint-plugin-sonarjs: "npm:^0.25.1"
-    eslint-plugin-sort-keys-fix: "npm:^1.1.2"
-    eslint-plugin-unicorn: "npm:^52.0.0"
-    eslint-plugin-vitest: "npm:^0.5.4"
-    husky: "npm:^8.0.3"
-    lint-staged: "npm:^15.2.8"
-    prettier: "npm:^3.3.3"
-    shellcheck: "npm:^3.0.0"
-    tsx: "npm:^4.17.0"
-    type-fest: "npm:^4.24.0"
-    typescript: "npm:^5.4.5"
-    vitest: "npm:^2.0.5"
-  languageName: unknown
-  linkType: soft
-
 "doctrine@npm:^2.1.0":
   version: 2.1.0
   resolution: "doctrine@npm:2.1.0"
@@ -4947,6 +4902,51 @@ __metadata:
   checksum: 10/5f99bd91dae93d02867175c3856c561d7e3a24f16999b08f5fc79689044b938d7ed58457f4d8c8744c01403e6e0470b7896baa344d112b2355842fd935a75d69
   languageName: node
   linkType: hard
+
+"home-automation@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "home-automation@workspace:."
+  dependencies:
+    "@cspell/eslint-plugin": "npm:^8.13.2"
+    "@digital-alchemy/automation": "npm:^24.7.1"
+    "@digital-alchemy/core": "npm:^24.7.2"
+    "@digital-alchemy/fastify-extension": "npm:^24.7.1"
+    "@digital-alchemy/hass": "npm:^24.8.1"
+    "@digital-alchemy/mqtt-extension": "npm:^24.7.1"
+    "@digital-alchemy/synapse": "npm:^24.8.1"
+    "@digital-alchemy/type-writer": "npm:^24.7.2"
+    "@types/async": "npm:^3.2.24"
+    "@types/bun": "npm:^1.1.6"
+    "@types/jest": "npm:^29.5.12"
+    "@types/node": "npm:^22.2.0"
+    "@typescript-eslint/eslint-plugin": "npm:7.18.0"
+    "@typescript-eslint/parser": "npm:7.18.0"
+    "@vitest/coverage-v8": "npm:^2.0.5"
+    bun: "npm:^1.1.22"
+    cross-env: "npm:^7.0.3"
+    dayjs: "npm:^1.11.12"
+    eslint: "npm:8.57.0"
+    eslint-config-prettier: "npm:9.1.0"
+    eslint-plugin-import: "npm:^2.29.1"
+    eslint-plugin-jsonc: "npm:^2.16.0"
+    eslint-plugin-no-unsanitized: "npm:^4.0.2"
+    eslint-plugin-prettier: "npm:^5.2.1"
+    eslint-plugin-security: "npm:^3.0.1"
+    eslint-plugin-simple-import-sort: "npm:^12.1.1"
+    eslint-plugin-sonarjs: "npm:^0.25.1"
+    eslint-plugin-sort-keys-fix: "npm:^1.1.2"
+    eslint-plugin-unicorn: "npm:^52.0.0"
+    eslint-plugin-vitest: "npm:^0.5.4"
+    husky: "npm:^8.0.3"
+    lint-staged: "npm:^15.2.8"
+    prettier: "npm:^3.3.3"
+    shellcheck: "npm:^3.0.0"
+    tsx: "npm:^4.17.0"
+    type-fest: "npm:^4.24.0"
+    typescript: "npm:^5.4.5"
+    vitest: "npm:^2.0.5"
+  languageName: unknown
+  linkType: soft
 
 "hosted-git-info@npm:^2.1.4":
   version: 2.8.9
