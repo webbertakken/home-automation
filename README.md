@@ -6,10 +6,10 @@ image.
 
 ## Rationale
 
-Home Assistant is a great platform for connecting all kinds of smart devices. We'll use it for that purpose.
-It's UI-based automations are great for simple tasks. But as the complexity of the automations grows,
-it becomes harder to manage them. This project aims to solve that problem by using TypeScript to write
-automations.
+Home Assistant is a great platform for connecting all kinds of smart devices. We'll use it for that
+purpose. It's UI-based automations are great for simple tasks. But as the complexity of the
+automations grows, it becomes harder to manage them. This project aims to solve that problem by
+using TypeScript to write automations.
 
 ## Why?
 
