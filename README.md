@@ -1,126 +1,56 @@
-# Automation Standalone 🏡💻🐳
+# Webber's Home Automation 🏡💻🐳
 
-Welcome to the Digital Alchemy standalone automation repository!
+Webber's Home Automation consists of TypeScript logic that interacts with a HomeAssistant instance
+through a websocket to automate my home. It is a standalone application that runs from a docker
+image.
 
-## Purpose
+## Rationale
 
-This repository is designed to work both locally and deployed as a docker container. The container
-will interact with the HomeAssistant websocket to fulfill its automation goals.
+Home Assistant is a great platform for connecting all kinds of smart devices. We'll use it for that purpose.
+It's UI-based automations are great for simple tasks. But as the complexity of the automations grows,
+it becomes harder to manage them. This project aims to solve that problem by using TypeScript to write
+automations.
 
-## Community
+## Why?
 
-- 📚 [Documentation](https://docs.digital-alchemy.app/)
-- 🗣️ [Discord](https://discord.gg/JkZ35Gv97Y)
+- 🎮 TypeScript gives much more control over automations
+- 📄 Simpler to reuse code
+- 🧪 Test logic using automated tests
+- 🧠 Easier to reason about complexity
+- 🧻 Ability to rollback and revise changes
+- 👨‍👩‍👧‍👦 Easy to share and collaborate with others
+- 🚀 Faster development cycle
 
-## Setup
+## Development
 
-### Prerequisites
+During development, the local application takes precedence over the production container. This
+allows me to test new features and automations before deploying them to production.
 
-These tools need to be installed on your machine:
+All development steps are detailed in [DEVELOPMENT.md](./DEVELOPMENT.md).
 
-- [Volta](https://volta.sh/) - Autonomously manages Node and Yarn versions
-- [Docker desktop](https://www.docker.com/products/docker-desktop/) - For packaging the application
+## Deployment
 
-### Clone
+Personally I run [an Unraid server](https://takken.io/blog/building-an-energy-efficient-server) at
+home that runs at 7 watts when there is no load. This is where I deploy home automation related
+containers.
 
-Clone the repository to your local machine:
+### Settings
 
-```bash
-git clone git@github.com/Digital-Alchemy-TS/automation-standalone.git
-```
+The settings are simple
 
-### Change directory
+<img alt="Unraid deployment setup" src="./media/unraid-deployment-setup.png">
 
-Change directory to the repository root:
+It uses the following environment variables
 
-```bash
-cd automation-standalone
-```
+- `HASS_BASE_URL`, which points to the HomeAssistant instance
+- `HASS_TOKEN`, which is a long-lived access token from that same instance
 
-### Install
+### Deployed
 
-**Optional**: If you don't have Volta installed, you must enable Corepack to use the correct Yarn
-version.
+Deployment looks like this
 
-```bash
-npm unistall -g yarn pnpm
-corepack enable
-```
+<img alt="Unraid deployment result" src="./media/unraid-deployment-result.png">
 
-Install dependencies using Yarn:
+## License
 
-```bash
-yarn
-```
-
-### Configure
-
-Create a `.env` file from the `.env.dist` example file.
-
-```bash
-cp .env.dist .env
-```
-
-Then, configure each variable in `.env` so that the application can connect to your HA instance.
-
-## Usage
-
-### Sync
-
-Synchronize the latest DA packages and write types based on your HA instance
-
-```bash
-yarn type-writer
-```
-
-### Run
-
-Run your automations locally
-
-```bash
-yarn dev
-```
-
-## Testing
-
-#### Unit tests and integration tests
-
-Run all your tests
-
-```bash
-yarn test
-```
-
-#### End-to-end tests
-
-See [./playground](./playground/README.md) folder readme.
-
-## Publication
-
-### Build
-
-Build the application
-
-```bash
-yarn build
-```
-
-### Publish
-
-Build and publish your application to a docker registry
-
-```bash
-yarn publish
-```
-
-### Deploy
-
-For now, this will be considered a manual step. Basically all you have to do is pull the image that
-you've just pushed.
-
-> _**Note:** make sure that the same variables from `.env.dist` are passed into the container at
-> runtime._
-
-## 📄 License
-
-This project is licensed under the MIT License, as detailed in the [LICENSE](./LICENSE) file.
+This project is licensed under the [MIT License](./LICENSE).

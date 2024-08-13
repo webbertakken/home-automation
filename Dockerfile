@@ -9,12 +9,11 @@ RUN apk --no-cache add ca-certificates wget \
     && rm -f glibc-2.28-r0.apk
 
 # Open Container Initiative (OCI) labels
-LABEL org.opencontainers.image.title="Docker Standalone" \
-      org.opencontainers.image.description="This image contains an end-users automations application that communicates directly with a HomeAssistant instance" \
+LABEL org.opencontainers.image.title="Webber - Home Automation" \
+      org.opencontainers.image.description="Webber's home automation runtime" \
       org.opencontainers.image.version="1.0.0" \
-      org.opencontainers.image.url="https://github.com/digital-alchemy/docker-standalone" \
-      org.opencontainers.image.documentation="https://docs.digital-alchemy.app/" \
-      org.opencontainers.image.source="https://github.com/digital-alchemy/docker-standalone" \
+      org.opencontainers.image.url="https://github.com/webbertakken/home-automation" \
+      org.opencontainers.image.source="https://github.com/webbertakken/home-automation" \
       org.opencontainers.image.vendor="Digital Alchemy" \
       org.opencontainers.image.authors="Webber Takken <webber@takken.io>" \
       org.opencontainers.image.licenses="MIT"
